@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .profile-card {
+            max-width: 700px;
+            margin: auto;
+        }
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+        }
+        .table th {
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card shadow-sm profile-card">
+        <div class="row g-0">
+            <!-- Avatar -->
+            <div class="col-md-4 text-center p-4 bg-light d-flex flex-column align-items-center justify-content-center">
+                <img th:src="@{/images/{img}(img=${user.image})}" class="img-fluid rounded-circle profile-avatar mb-3" alt="User Avatar">
+                <span th:text="${user.status}" class="badge" th:classappend="${user.status == 'Active'} ? ' bg-success' : ' bg-secondary'"></span>
+            </div>
+
+            <!-- User Info -->
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title mb-3" th:text="${user.fullname}">Full Name</h4>
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th>Email:</th>
+                            <td th:text="${user.email}">user@example.com</td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td th:text="${user.address}">123 Street, City</td>
+                        </tr>
+                        <tr>
+                            <th>Phone:</th>
+                            <td th:text="${user.phone}">+1234567890</td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td th:text="${user.gender}">Male/Female</td>
+                        </tr>
+                        <tr>
+                            <th>Role:</th>
+                            <td th:text="${user.role}">User/Admin</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-3">
+                        <a href="/edit-profile" class="btn btn-primary me-2">Edit Profile</a>
+                        <a href="/dashboard" class="btn btn-outline-secondary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional for interactive components) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
