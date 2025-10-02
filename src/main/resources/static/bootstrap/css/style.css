@@ -1,0 +1,97 @@
+		body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        
+        .navbar {
+    		background-color: white;
+    		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    		z-index: 1000;
+		}
+
+        .navbar-brand, .nav-link {
+            color: #0d6efd !important;
+            font-weight: 500;
+            
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: blue !important;
+        }
+        .hero-section {
+            background: white;
+            color: black;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+        
+        .hero-text {
+    animation: fadeInUp 1.2s ease-in-out;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 20px;
+}
+
+.hero-title span {
+    color: #0d6efd; /* Blue highlight */
+    text-shadow: 1px 1px 3px rgba(13, 110, 253, 0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 30px;
+}
+        .btn-get-started {
+    		background: linear-gradient(135deg, #1e3c72, #2a5298); /* Dark → Light Blue */
+    		color: #fff;
+    		font-weight: 600;
+    		font-size: 1.2rem;
+    		padding: 14px 40px;
+    		border-radius: 50px;
+    		border: none;
+    		box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
+    		transition: all 0.3s ease-in-out;
+    		text-decoration: none;
+    		display: inline-block;
+		}
+
+.		btn-get-started:hover {
+    		background: linear-gradient(135deg, #2a5298, #1e3c72);
+    		box-shadow: 0 8px 25px rgba(30, 60, 114, 0.5);
+    		transform: translateY(-3px);
+		}
+        
+        .feature-card {
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        footer {
+            background-color: #212529;
+            color: #adb5bd;
+            padding: 20px 0;
+        }
+        footer a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }@charset "ISO-8859-1";
