@@ -28,6 +28,11 @@ import lombok.NoArgsConstructor;
 @Table(name="users")
 public class User implements UserDetails {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
@@ -63,7 +68,7 @@ public class User implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return getUsername();
 	}
 
 }

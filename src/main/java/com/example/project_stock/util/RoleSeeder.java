@@ -26,9 +26,7 @@ public class RoleSeeder {
     	if (!isExist) {
     		Role role = new Role();
     		role.setName(roleName);
-    		roleRepository.save(role);
-    		
-    		
+    		roleRepository.save(role);	
     	}
     }
 }
