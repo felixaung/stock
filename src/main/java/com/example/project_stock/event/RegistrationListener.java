@@ -20,10 +20,10 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     	this.tokenService = tokenService;
     	this.emailService = emailService;
     }
+    
 	@Override
 	public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-		 this.confirmRegistration(event);
-		
+		 this.confirmRegistration(event);	
 	}
 	
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
@@ -38,5 +38,4 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
         emailService.sendEmail(recipientAddress, subject, message);
     }
-
 }

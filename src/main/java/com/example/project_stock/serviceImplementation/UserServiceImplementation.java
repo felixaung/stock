@@ -32,11 +32,9 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
 	
 	@Override
 	public User checkLogIn(AuthLogInDTO authLogIn) {
-	    return userRepository.findByEmail(authLogIn.getEmail());
-	    
+	    return userRepository.findByEmail(authLogIn.getEmail());   
 	}
 	
-
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
@@ -70,9 +68,6 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
 	        );
 
 	        return user;
-
-	 
-
 	}
 	
     public String validateVerificationToken(String token) {
