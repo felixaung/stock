@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="users")
-public class User implements UserDetails {
+public class User {
 	
 	/**
 	 * 
@@ -58,17 +58,5 @@ public class User implements UserDetails {
 	@JoinColumn(name = "role_id",nullable=false)
 	private Role role;
 
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(role.getName()));
-	}
-
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return getUsername();
-	}
 
 }

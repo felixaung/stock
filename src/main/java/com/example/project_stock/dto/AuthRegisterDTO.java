@@ -14,11 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AuthRegisterDTO {
 	
-	@NotEmpty(message = "Register can be empty")
+	@NotEmpty(message = "Name can be empty")
 	String name;
 	
 	@Email(message = "Invalid email address. Please enter a proper email")
-	@NotEmpty(message = "Register Email can't be empty")
+	@NotEmpty(message = "Email can't be empty")
 	String email;
 
 	@NotEmpty(message = "Password can't be empty")

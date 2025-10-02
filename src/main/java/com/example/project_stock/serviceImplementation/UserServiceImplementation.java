@@ -17,7 +17,7 @@ import com.example.project_stock.service.UserService;
 
 
 @Service
-public class UserServiceImplementation implements UserDetailsService, UserService{
+public class UserServiceImplementation implements UserService{
 	
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepositroy;
@@ -32,22 +32,15 @@ public class UserServiceImplementation implements UserDetailsService, UserServic
 	
 	@Override
 	public User checkLogIn(AuthLogInDTO authLogIn) {
-	    return userRepository.findByEmail(authLogIn.getEmail());   
+	    return userRepository.findByEmail(authLogIn.getEmail());
 	}
 	
-    @Override
-    public User loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with name: " + email);
-        }
-        return user; 
-    }
 
 	@Override
 	public User registerNewUserAccount(AuthRegisterDTO authRegister) {
 		
 	        User user = new User();
+	        user.setName(authRegister.getName());
 	        user.setEmail(authRegister.getEmail());
 	        user.setPassword(new BCryptPasswordEncoder().encode(authRegister.getPassword()));
 	        user.setEnabled(false);

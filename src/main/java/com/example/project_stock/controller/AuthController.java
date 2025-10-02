@@ -47,7 +47,7 @@ public class AuthController {
 	    
 		if(result.hasErrors()) {
 			return "auth/login";
-		}
+		}	
 
 	    User user;
 	    try {
