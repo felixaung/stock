@@ -30,9 +30,7 @@ public class ReportController {
         byte[] pdfBytes = reportService.exportReport();
 
         return ResponseEntity.ok()
-
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
-
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
     }

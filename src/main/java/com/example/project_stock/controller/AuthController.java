@@ -32,46 +32,14 @@ public class AuthController {
 		this.eventPublisher = eventPublisher;
 	}
 
+	
 	@GetMapping("/log-in")
 	public String getLogInPage(Model model) {
 		model.addAttribute("authLogin", new AuthLogInDTO());
 		return "auth/login";
 	}
 	
-	@PostMapping("/log-in")
-	public String logIn(
-	        @Valid @ModelAttribute("authLogin") AuthLogInDTO authLogIn,
-	        BindingResult result,
-	        HttpSession session,
-	        Model model) {
-	    
-		if(result.hasErrors()) {
-			return "auth/login";
-		}	
 
-	    User user;
-	    try {
-	        user = userService.checkLogIn(authLogIn);
-	    } catch (UsernameNotFoundException ex) {
-	        model.addAttribute("loginError", "Invalid email or password.");
-	        return "auth/login";
-	    }
-
-	    if (user == null || user.getRole() == null) {
-            model.addAttribute("loginError", "Invalid email or password.");
-            return "auth/login";
-	    }
-
-	    session.setAttribute("loggedUser", user);
-
-	    String roleName = user.getRole().getName().toLowerCase();
-	    return switch (roleName) {
-	        case "admin" -> "/admin/index";
-	        case "user" -> "/user/index";
-	        default -> "redirect:/";
-	    };
-	}
-	
 	@GetMapping("/register")
 	public String getRegisterPage(Model model) {
         model.addAttribute("authRegister", new AuthRegisterDTO());

@@ -2,7 +2,7 @@ package com.example.project_stock.serviceImplementation;
 
 import java.util.UUID;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -80,6 +80,23 @@ public class UserServiceImplementation implements UserService{
 		return userRepository.findByEmail(email) != null;
 	}
 
+	
+	// add this for working with spring security 
+	// implement UserDetailService
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	    User user = userRepository.findByEmail(email);
+	    if (user == null) {
+	        throw new UsernameNotFoundException("User not found with email: " + email);
+	    }
+
+	    return org.springframework.security.core.userdetails.User.builder()
+	            .username(user.getEmail())
+	            .password(user.getPassword())
+	            .roles(user.getRole().getName()) 
+	            .disabled(!user.isEnabled())     
+	            .build();
+	}
 
 
 }

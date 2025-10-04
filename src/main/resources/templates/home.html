@@ -1,126 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Stock Exchange - Home</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap -->
+  <title>Stock Exchange - Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
 
-    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"
+  <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"
     th:href="@{/bootstrap/css/bootstrap.min.css}">
-        <link rel="stylesheet" href="../../static/bootstrap/css/style.css"
-    th:href="@{/bootstrap/css/style.css}">
+  <link rel="stylesheet" href="../../static/bootstrap/css/style.css" th:href="@{/bootstrap/css/style.css}">
 
-   
+
 </head>
+
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="/">
-	<img th:src="@{/images/DAT.png}" alt="Stock Chart" class="" width="50px" height="30px">
-    
-    </a>
-    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-lg-center">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">
+        <img th:src="@{/images/DAT.png}" alt="Stock Chart" class="" width="50px" height="30px">
 
-        <!-- Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-bs-toggle="dropdown">
-            Menu
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow">
-            <li><a class="dropdown-item" href="#">Stocks</a></li>
-            <li><a class="dropdown-item" href="#">Forex</a></li>
-            <li><a class="dropdown-item" href="#">Crypto</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Market News</a></li>
-          </ul>
-        </li>
+      </a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <li class="nav-item"><a class="nav-link" href="#">Market</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 
-        <!-- ✅ Login & Signup Buttons -->
-        <li class="nav-item ms-lg-3">
-          <a th:href="@{/log-in}" class="btn btn-outline-success btn-sm px-4 rounded-pill">Login</a>
-        </li>
-        <li class="nav-item ms-2">
-          <a th:href="@{/register}" class="btn btn-primary btn-sm px-4 rounded-pill">Signup</a>
-        </li>
-      </ul>
+          <!-- Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-bs-toggle="dropdown">
+              Menu
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li><a class="dropdown-item" href="#">Stocks</a></li>
+              <li><a class="dropdown-item" href="#">Forex</a></li>
+              <li><a class="dropdown-item" href="#">Crypto</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Market News</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="#">Market</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+
+
+          <li class="nav-item ms-lg-3" th:if="${#authorization.expression('isAnonymous()')}">
+            <a th:href="@{/log-in}" class="btn btn-outline-success btn-sm px-4 rounded-pill">Login</a>
+          </li>
+          <li class="nav-item ms-2" th:if="${#authorization.expression('isAnonymous()')}">
+            <a th:href="@{/register}" class="btn btn-primary btn-sm px-4 rounded-pill">Signup</a>
+          </li>
+
+
+          <li class="nav-item ms-2 dropdown" th:if="${#authorization.expression('isAuthenticated()')}">
+            <a class="nav-link dropdown-toggle fw-semibold text-capitalize" href="#" id="userDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <span th:text="${currentUser.name}">User</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <form th:action="@{/logout}" method="post">
+                  <button type="submit" class="dropdown-item">Logout</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Text Column -->
+        <div class="col-md-6 text-start hero-text">
+          <h2 class="hero-title">Welcome to <span>Stock Exchange</span></h2>
+          <p class="hero-subtitle">
+            Track, Trade, and Grow with confidence. <br>
+            Your trusted platform for <strong>smart investments</strong>.
+          </p>
+
+          <a th:href="@{/register}" class="btn-get-started">🚀 Get Started</a>
+
+        </div>
+
+
+
+        <!-- Image Column -->
+        <div class="col-md-6 text-center">
+          <img th:src="@{/images/chart.jpg}" alt="Stock Chart" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Features -->
+  <div class="container my-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="feature-card p-4">
+          <h4 class="text-primary">📊 Live Market</h4>
+          <p>Get real-time updates on stock prices and market movements.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-card p-4">
+          <h4 class="text-primary">💼 Portfolio</h4>
+          <p>Manage your investments and monitor performance anytime, anywhere.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-card p-4">
+          <h4 class="text-primary">🔒 Secure Trading</h4>
+          <p>Enjoy a safe and secure platform with enterprise-grade protection.</p>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
 
-
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Text Column -->
-            <div class="col-md-6 text-start hero-text">
-    <h2 class="hero-title">Welcome to <span>Stock Exchange</span></h2>
-    <p class="hero-subtitle">
-        Track, Trade, and Grow with confidence. <br>
-        Your trusted platform for <strong>smart investments</strong>.
-    </p>
-
-    <a th:href="@{/register}" class="btn-get-started">🚀 Get Started</a>
-
-</div>
-
-
-
-            <!-- Image Column -->
-            <div class="col-md-6 text-center">
-                <img th:src="@{/images/chart.jpg}" alt="Stock Chart" class="img-fluid rounded shadow">
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Features -->
-<div class="container my-5">
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="feature-card p-4">
-                <h4 class="text-primary">📊 Live Market</h4>
-                <p>Get real-time updates on stock prices and market movements.</p>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="feature-card p-4">
-                <h4 class="text-primary">💼 Portfolio</h4>
-                <p>Manage your investments and monitor performance anytime, anywhere.</p>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="feature-card p-4">
-                <h4 class="text-primary">🔒 Secure Trading</h4>
-                <p>Enjoy a safe and secure platform with enterprise-grade protection.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer>
-  <div class="container text-center">
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
       <p>&copy; 2025 StockExchange. All rights reserved.</p>
       <p>Contact us: <a href="mailto:support@stockexchange.com">support@stockexchange.com</a></p>
-  </div>
-</footer>
+    </div>
+  </footer>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
