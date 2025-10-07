@@ -16,8 +16,8 @@ public class RoleSeeder {
     
     @PostConstruct
     public void initRoles() {
-    	createRoleIsNotExist("admin");
-    	createRoleIsNotExist("user");
+    	createRoleIsNotExist("ADMIN");
+    	createRoleIsNotExist("USER");
     }
     
     public void createRoleIsNotExist(String roleName) {

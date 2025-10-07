@@ -9,17 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.project_stock.serviceImplementation.CustomUserService;
-import com.example.project_stock.serviceImplementation.UserServiceImplementation;
+import com.example.project_stock.service.AuthService;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
 
-    private final UserServiceImplementation userService;
+    private final AuthService authService;
 
-    public SecurityConfig(UserServiceImplementation userService) {
-        this.userService = userService;
+    public SecurityConfig(AuthService authService) {
+        this.authService = authService;
     }
 	     
 	
@@ -30,8 +30,8 @@ public class SecurityConfig  {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/log-in", "/register", "/verify-email", "/bootstrap/**", "/images/**","/","/home").permitAll()
-            .requestMatchers("/admin/**").hasRole("admin")
-            .requestMatchers("/user/**").hasRole("user")
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/user/**").hasRole("USER")
             .anyRequest().authenticated()
         )
         .formLogin(form -> form
@@ -39,7 +39,8 @@ public class SecurityConfig  {
             .loginProcessingUrl("/log-in") 
             .usernameParameter("email")    
             .passwordParameter("password")
-            .defaultSuccessUrl("/home", true)
+//            .defaultSuccessUrl("/home", true)
+            .successHandler(authService)
             .failureUrl("/log-in?error=true")
             .permitAll()
         )
@@ -49,7 +50,7 @@ public class SecurityConfig  {
             .permitAll()
         );
 
-    return http.build();
+    return http.build();	
 	}
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -60,9 +61,9 @@ public class SecurityConfig  {
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder encoder)
             throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-        		.userDetailsService(userService)
-                .passwordEncoder(encoder)
-                .and()
-                .build();
+        		   .userDetailsService(authService)
+                   .passwordEncoder(encoder)
+                   .and()
+                   .build();
     }
 }
